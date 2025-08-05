@@ -5,15 +5,15 @@ try:
 except ImportError:
     get_configs = None
 
-try:
-    from .backend_psychopy import get_psychopy_info
-except (ImportError, NameError):
-    get_psychopy_info = None
+# try:
+from .backend_psychopy import get_psychopy_info
+# except (ImportError, NameError):
+# get_psychopy_info = None
 
-try:
-    from .instructions_psychopy import instructions_psychopy
-except (ImportError, NameError):
-    instructions_psychopy = None
+# try:
+from .instructions_psychopy import instructions_psychopy
+# except (ImportError, NameError):
+# instructions_psychopy = None
 
 try:
     from .backend_pygame import get_pygame_info

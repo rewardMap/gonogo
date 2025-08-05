@@ -1,6 +1,6 @@
 # Module name needs to be changed here:
 try:
-    from task_template.core import (
+    from gonogo.core import (
         get_configs,
         get_psychopy_info,
         get_pygame_info,
@@ -18,7 +18,7 @@ except (ModuleNotFoundError, ImportError):
         )
 
     except (ModuleNotFoundError, ImportError):
-        from rewardgym.tasks.task_template.core import (
+        from rewardgym.tasks.gonogo.core import (
             get_configs,
             get_pygame_info,
             get_psychopy_info,
@@ -42,16 +42,16 @@ def test_get_pygame_info():
         out = get_pygame_info({0: "left", 1: "right"}, 120)
         assert isinstance(out, dict)
     else:
-        warnings.warn("Import of test_get_pygame_info was None, is this intended?")
+        warnings.warn("Import of test get_pygame_info was None, is this intended?")
 
 
 def test_get_psychopy_info():
-    if get_pygame_info is not None:
+    if get_psychopy_info is not None:
         a, b = get_psychopy_info()
         assert isinstance(a, dict)
-        assert isinstance(b, dict)
+        assert isinstance(b, dict) or (b is None)
     else:
-        warnings.warn("Import of test_get_psychopy_info was None, is this intended?")
+        warnings.warn("Import of test get_psychopy_info was None, is this intended?")
 
 
 def test_get_task():

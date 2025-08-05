@@ -1,24 +1,52 @@
 try:
     from rewardgym.utils import check_seed
+    from rewardgym.task.utils import check_conditions_present
 except ImportError:
+    from ...utils import check_conditions_present
     from ....utils import check_seed
 
 
 def get_configs(stimulus_set: str = "1"):
-    check_seed(int(stimulus_set))
+    seed = check_seed(int(stimulus_set))
+
+    condition_dict = {
+        "go-win": {0: {0: 1}},
+        "go-punish": {0: {0: 2}},
+        "nogo-win": {0: {0: 3}},
+        "nogo-punish": {0: {0: 4}},
+    }
+
+    condition_template = ["go-win", "go-punish", "nogo-win", "nogo-punish"] * 15  # 80 %
+    iti_template = [0.5, 0.75, 1.0, 1.25] * 15
+    isi_template = [0.25, 0.75, 1.125, 1.75, 2.0] * 12  # 5 * 12 = 60
+
+    n_blocks = 3
+
+    check = False
+    while not check:
+        conditions = seed.permutation(condition_template).tolist()
+        check = check_conditions_present(conditions[:8], list(condition_dict.keys()))
+
+    isi = seed.permutation(isi_template).tolist()
+    iti = seed.permutation(iti_template).tolist()
+
+    for _ in range(n_blocks - 1):
+        conditions.extend(seed.permutation(condition_template).tolist())
+        isi.extend(seed.permutation(isi_template).tolist())
+        iti.extend(seed.permutation(iti_template).tolist())
 
     config = {
-        "name": "risk-sensitive",
+        "name": "gonogo",
         "stimulus_set": stimulus_set,
-        "isi": [],
-        "iti": [],
-        "condition": [],
-        "condition_dict": {},
-        "ntrials": 1,
-        "update": [],
+        "isi": isi,
+        "iti": iti,
+        "condition": conditions,
+        "condition_dict": condition_dict,
+        "ntrials": len(conditions),
+        "update": ["isi", "iti"],
         "add_remainder": True,
-        "breakpoints": [],
-        "break_duration": 0,
+        "breakpoints": [59, 119],
+        "break_duration": 45,
     }
 
     return config
