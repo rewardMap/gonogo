@@ -101,7 +101,7 @@ def get_psychopy_info(
         image_map, stimuli = external_stimuli
 
     reward_feedback = FeedBackStimulus(
-        1.0, text="{0}", target="reward", name="reward", bar_total=fullpoints
+        1.0, text="{0}", target="reward", name="reward", bar_total=fullpoints, rl_label="reward"
     )
 
     base_stim = ImageStimulus(
@@ -120,6 +120,7 @@ def get_psychopy_info(
                 image_paths=[img],
                 positions=[(0, 0)],
                 name="cue",
+                rl_label="obs"
             ),
             fix_isi,
             ImageStimulus(
@@ -136,11 +137,11 @@ def get_psychopy_info(
                 positions=[(0, 0)],
                 name="target",
             ),
-            ActionStimulus(duration=1.0, key_dict=key_dict, timeout_action=1),
+            ActionStimulus(duration=1.0, key_dict=key_dict, timeout_action=1, rl_label="action"),
         ]
 
     final_step = [
-        BaseStimulus(duration=1.0, name="reward-delay"),
+        BaseStimulus(duration=1.0, name="reward-delay", rl_label="obs"),
         reward_feedback,
         BaseStimulus(name="iti", duration=1.0),
     ]
