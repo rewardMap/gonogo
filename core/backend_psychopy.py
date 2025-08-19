@@ -91,9 +91,9 @@ def gonogo_robots(random_state, stim_defaults=STIMULUS_DEFAULTS):
 
 
 def get_psychopy_info(
-    seed=None, key_dict={"space": 0}, external_stimuli=None, fullpoints=None, **kwargs
+    random_state=None, key_dict={"space": 0}, external_stimuli=None, fullpoints=None, **kwargs
 ):
-    random_state = check_random_state(seed)
+    random_state = check_random_state(random_state)
 
     if external_stimuli is None:
         image_map, stimuli = gonogo_robots(random_state)

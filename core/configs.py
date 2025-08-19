@@ -7,7 +7,7 @@ except ImportError:
 
 
 def get_configs(stimulus_set: str = "1"):
-    seed = check_random_state(int(stimulus_set))
+    random_state = check_random_state(int(stimulus_set))
 
     condition_dict = {
         "go-win": {0: {0: 1}},
@@ -24,16 +24,16 @@ def get_configs(stimulus_set: str = "1"):
 
     check = False
     while not check:
-        conditions = seed.permutation(condition_template).tolist()
+        conditions = random_state.permutation(condition_template).tolist()
         check = check_conditions_present(conditions[:8], list(condition_dict.keys()))
 
-    isi = seed.permutation(isi_template).tolist()
-    iti = seed.permutation(iti_template).tolist()
+    isi = random_state.permutation(isi_template).tolist()
+    iti = random_state.permutation(iti_template).tolist()
 
     for _ in range(n_blocks - 1):
-        conditions.extend(seed.permutation(condition_template).tolist())
-        isi.extend(seed.permutation(isi_template).tolist())
-        iti.extend(seed.permutation(iti_template).tolist())
+        conditions.extend(random_state.permutation(condition_template).tolist())
+        isi.extend(random_state.permutation(isi_template).tolist())
+        iti.extend(random_state.permutation(iti_template).tolist())
 
     config = {
         "name": "gonogo",

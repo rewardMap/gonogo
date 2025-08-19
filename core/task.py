@@ -15,20 +15,20 @@ except ImportError:
 
 def get_task(
     render_backend: Literal["pygame", "psychopy"] = None,
-    seed: Union[int, np.random.Generator] = 1000,
+    random_state: Union[int, np.random.Generator] = 1000,
     key_dict=None,
 ):
-    seed = check_random_state(seed)
+    random_state = check_random_state(random_state)
     yaml_file = pathlib.Path(__file__).parents[1].resolve() / "task.yaml"
     info_dict, environment_graph = load_task_from_yaml(yaml_file)
 
     reward_structure = {
-        5: PseudoRandomReward(reward_list=[-1, -1, 0, 0, 0, 0, 0, 0, 0, 0], seed=seed),
+        5: PseudoRandomReward(reward_list=[-1, -1, 0, 0, 0, 0, 0, 0, 0, 0], random_state=random_state),
         6: PseudoRandomReward(
-            reward_list=[-1, -1, -1, -1, -1, -1, -1, -1, 0, 0], seed=seed
+            reward_list=[-1, -1, -1, -1, -1, -1, -1, -1, 0, 0], random_state=random_state
         ),
-        7: PseudoRandomReward(reward_list=[1, 1, 1, 1, 1, 1, 1, 1, 0, 0], seed=seed),
-        8: PseudoRandomReward(reward_list=[1, 1, 0, 0, 0, 0, 0, 0, 0, 0], seed=seed),
+        7: PseudoRandomReward(reward_list=[1, 1, 1, 1, 1, 1, 1, 1, 0, 0], random_state=random_state),
+        8: PseudoRandomReward(reward_list=[1, 1, 0, 0, 0, 0, 0, 0, 0, 0], random_state=random_state),
     }
 
     info_dict.update(
@@ -47,7 +47,7 @@ def get_task(
         if key_dict is None:
             key_dict = {"space": 0}
 
-        psychopy_dict, _ = get_psychopy_info(seed=seed, key_dict=key_dict)
+        psychopy_dict, _ = get_psychopy_info(random_state=random_state, key_dict=key_dict)
         info_dict.update(psychopy_dict)
 
     return environment_graph, reward_structure, info_dict
