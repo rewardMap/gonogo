@@ -15,10 +15,10 @@ try:
         mid_stimuli,
         STIMULUS_DEFAULTS,
     )
-    from ....utils import check_seed
+    from ....utils import check_random_state
 
 except ImportError:
-    from rewardgym import check_seed
+    from rewardgym import check_random_state
     from rewardgym.psychopy_render import (
         ImageStimulus,
         STIMULUS_DEFAULTS,
@@ -36,7 +36,7 @@ except ImportError:
 
 
 def gonogo_stimuli(random_state, stim_defaults=STIMULUS_DEFAULTS):
-    random_state = check_seed(random_state)
+    random_state = check_random_state(random_state)
     stim_properties = []
 
     stim_defaults = deepcopy(stim_defaults)
@@ -67,7 +67,7 @@ def gonogo_stimuli(random_state, stim_defaults=STIMULUS_DEFAULTS):
 
 
 def gonogo_robots(random_state, stim_defaults=STIMULUS_DEFAULTS):
-    random_state = check_seed(random_state)
+    random_state = check_random_state(random_state)
     colors = stim_defaults["colors"][:-1]
     no_colors = len(colors)
     allow_set = colors + colors
@@ -93,7 +93,7 @@ def gonogo_robots(random_state, stim_defaults=STIMULUS_DEFAULTS):
 def get_psychopy_info(
     seed=None, key_dict={"space": 0}, external_stimuli=None, fullpoints=None, **kwargs
 ):
-    random_state = check_seed(seed)
+    random_state = check_random_state(seed)
 
     if external_stimuli is None:
         image_map, stimuli = gonogo_robots(random_state)
