@@ -1,38 +1,20 @@
 from copy import deepcopy
 
-try:
-    from ....psychopy_render import (
-        ImageStimulus,
-        FeedBackStimulus,
-        ActionStimulus,
-        BaseStimulus,
-    )
-    from ....stimuli import (
-        fixation_cross,
-        make_card_stimulus,
-        generate_stimulus_properties,
-        draw_robot,
-        mid_stimuli,
-        STIMULUS_DEFAULTS,
-    )
-    from ....utils import check_random_state
-
-except ImportError:
-    from rewardgym import check_random_state
-    from rewardgym.psychopy_render import (
-        ImageStimulus,
-        STIMULUS_DEFAULTS,
-        FeedBackStimulus,
-        ActionStimulus,
-        BaseStimulus,
-    )
-    from rewardgym.stimuli import (
-        fixation_cross,
-        make_card_stimulus,
-        generate_stimulus_properties,
-        draw_robot,
-        mid_stimuli,
-    )
+from rewardgym import check_random_state
+from rewardgym.psychopy_render import (
+    ImageStimulus,
+    FeedBackStimulus,
+    ActionStimulus,
+    BaseStimulus,
+)
+from rewardgym.stimuli import (
+    fixation_cross,
+    make_card_stimulus,
+    generate_stimulus_properties,
+    draw_robot,
+    mid_stimuli,
+    STIMULUS_DEFAULTS,
+)
 
 
 def gonogo_stimuli(random_state, stim_defaults=STIMULUS_DEFAULTS):
