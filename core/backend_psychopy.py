@@ -123,9 +123,9 @@ def get_psychopy_info(
         ]
 
     final_step = [
-        BaseStimulus(duration=1.0, name="reward-delay", rl_label="obs"),
+        BaseStimulus(duration=1.0, name="reward-delay"),
         reward_feedback,
-        BaseStimulus(name="iti", duration=1.0),
+        BaseStimulus(name="iti", duration=1.0, rl_label="obs"),
     ]
 
     info_dict = {
