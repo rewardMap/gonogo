@@ -6,7 +6,7 @@ except ModuleNotFoundError:
 import json
 import pathlib
 
-from rewardgym.stimuli import (
+from rewardgym.render.stimuli import (
     draw_robot,
     fixation_cross,
     lose_cross,

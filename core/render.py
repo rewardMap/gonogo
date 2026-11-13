@@ -4,7 +4,7 @@ from rewardgym import check_random_state
 from rewardgym.render import ImageDefinition
 from rewardgym.render.routines import FeedBackRoutine, PresentationRoutine
 from rewardgym.render.routines import ActionRoutine
-from rewardgym.stimuli import (
+from rewardgym.render.stimuli import (
     STIMULUS_DEFAULTS,
     draw_robot,
     fixation_cross,
