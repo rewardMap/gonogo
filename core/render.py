@@ -1,19 +1,17 @@
 from copy import deepcopy
 
 from rewardgym import check_random_state
-
-from rewardgym.stimuli import (
-    fixation_cross,
-    make_card_stimulus,
-    generate_stimulus_properties,
-    draw_robot,
-    mid_stimuli,
-    STIMULUS_DEFAULTS,
-)
-
-from rewardgym.render.passive_routines import PresentationRoutine, FeedBackRoutine
-from rewardgym.render.response_routines import ActionRoutine
 from rewardgym.render import ImageDefinition
+from rewardgym.render.passive_routines import FeedBackRoutine, PresentationRoutine
+from rewardgym.render.response_routines import ActionRoutine
+from rewardgym.stimuli import (
+    STIMULUS_DEFAULTS,
+    draw_robot,
+    fixation_cross,
+    generate_stimulus_properties,
+    make_card_stimulus,
+    mid_stimuli,
+)
 
 
 def gonogo_stimuli(random_state, stim_defaults=STIMULUS_DEFAULTS):
@@ -72,8 +70,10 @@ def gonogo_robots(random_state, stim_defaults=STIMULUS_DEFAULTS):
 
 
 def get_render_info(
-    random_state=None, key_dict={"space": 0}, external_stimuli=None, fullpoints=None, **kwargs
+    random_state=None, key_dict=None, external_stimuli=None, fullpoints=None, **kwargs
 ):
+    if key_dict is None:
+        key_dict = {"space": 0}
     random_state = check_random_state(random_state)
 
     if external_stimuli is None:

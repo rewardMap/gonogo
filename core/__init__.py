@@ -6,12 +6,12 @@ except ImportError:
     get_configs = None
 
 # try:
-from .render import get_render_info
 # except (ImportError, NameError):
 # get_render_info = None
-
 # try:
 from .instructions_psychopy import instructions_psychopy
+from .render import get_render_info
+
 # except (ImportError, NameError):
 # instructions_psychopy = None
 
