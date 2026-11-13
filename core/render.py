@@ -71,7 +71,7 @@ def gonogo_robots(random_state, stim_defaults=STIMULUS_DEFAULTS):
     return image_map, None
 
 
-def get_psychopy_info(
+def get_render_info(
     random_state=None, key_dict={"space": 0}, external_stimuli=None, fullpoints=None, **kwargs
 ):
     random_state = check_random_state(random_state)
@@ -161,15 +161,15 @@ def get_psychopy_info(
     ]
 
     info_dict = {
-        0: {"psychopy": []},
-        1: {"psychopy": first_step(image_map[0])},
-        2: {"psychopy": first_step(image_map[1])},
-        3: {"psychopy": first_step(image_map[2])},
-        4: {"psychopy": first_step(image_map[3])},
-        5: {"psychopy": final_step},
-        6: {"psychopy": final_step},
-        7: {"psychopy": final_step},
-        8: {"psychopy": final_step},
+        0: {"render": []},
+        1: {"render": first_step(image_map[0])},
+        2: {"render": first_step(image_map[1])},
+        3: {"render": first_step(image_map[2])},
+        4: {"render": first_step(image_map[3])},
+        5: {"render": final_step},
+        6: {"render": final_step},
+        7: {"render": final_step},
+        8: {"render": final_step},
     }
 
     return info_dict, stimuli

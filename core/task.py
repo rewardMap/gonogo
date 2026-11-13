@@ -30,19 +30,13 @@ def get_task(
         {"position": {0: "go-win", 1: "go-punish", 2: "nogo-win", 3: "nogo-punish"}}
     )
 
-    if render_backend == "pygame":
-        from .backend_pygame import get_pygame_info
-
-        pygame_dict = get_pygame_info()
-        info_dict.update(pygame_dict)
-
-    elif render_backend == "psychopy" or render_backend == "psychopy-simulate":
-        from .backend_psychopy import get_psychopy_info
+    if render_backend is not None:
+        from .render import get_render_info
 
         if key_dict is None:
             key_dict = {"space": 0}
 
-        psychopy_dict, _ = get_psychopy_info(random_state=random_state, key_dict=key_dict)
-        info_dict.update(psychopy_dict)
+        render_dict, _ = get_render_info(random_state=random_state, key_dict=key_dict)
+        info_dict.update(render_dict)
 
     return environment_graph, reward_structure, info_dict
