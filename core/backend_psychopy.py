@@ -1,12 +1,7 @@
 from copy import deepcopy
 
 from rewardgym import check_random_state
-from rewardgym.psychopy_render import (
-    ImageStimulus,
-    FeedBackStimulus,
-    ActionStimulus,
-    BaseStimulus,
-)
+
 from rewardgym.stimuli import (
     fixation_cross,
     make_card_stimulus,
@@ -160,9 +155,9 @@ def get_psychopy_info(
         ]
 
     final_step = [
-        BaseStimulus(duration=1.0, name="reward-delay"),
+        PresentationRoutine(duration=1.0, name="reward-delay"),
         reward_feedback,
-        BaseStimulus(name="iti", duration=1.0, rl_label="obs"),
+        PresentationRoutine(name="iti", duration=1.0, rl_label="obs"),
     ]
 
     info_dict = {
