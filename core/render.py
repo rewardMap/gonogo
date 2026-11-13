@@ -2,8 +2,8 @@ from copy import deepcopy
 
 from rewardgym import check_random_state
 from rewardgym.render import ImageDefinition
-from rewardgym.render.passive_routines import FeedBackRoutine, PresentationRoutine
-from rewardgym.render.response_routines import ActionRoutine
+from rewardgym.render.routines import FeedBackRoutine, PresentationRoutine
+from rewardgym.render.routines import ActionRoutine
 from rewardgym.stimuli import (
     STIMULUS_DEFAULTS,
     draw_robot,
