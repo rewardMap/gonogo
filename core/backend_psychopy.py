@@ -16,6 +16,10 @@ from rewardgym.stimuli import (
     STIMULUS_DEFAULTS,
 )
 
+from rewardgym.render.passive_routines import PresentationRoutine, FeedBackRoutine
+from rewardgym.render.response_routines import ActionRoutine
+from rewardgym.render import ImageDefinition
+
 
 def gonogo_stimuli(random_state, stim_defaults=STIMULUS_DEFAULTS):
     random_state = check_random_state(random_state)
@@ -82,44 +86,77 @@ def get_psychopy_info(
     else:
         image_map, stimuli = external_stimuli
 
-    reward_feedback = FeedBackStimulus(
-        1.0, text="{0}", target="reward", name="reward", bar_total=fullpoints, rl_label="reward"
+    reward_feedback = FeedBackRoutine(
+        duration=1.0,
+        name="reward",
+        rl_label="reward",
+        bar_total=fullpoints
     )
 
-    base_stim = ImageStimulus(
-        image_paths=[fixation_cross()], duration=0.3, name="fixation", autodraw=True
+    fixation = ImageDefinition(
+        image=fixation_cross(),
+        pos=(0, 0),
+        name="fix",
+        autoDraw=True
     )
 
-    fix_isi = ImageStimulus(
-        image_paths=[fixation_cross()], duration=0.3, name="isi", autodraw=False
+    fixation2 = ImageDefinition(
+        image=fixation_cross(),
+        pos=(0, 0),
+        name="fix",
+        autoDraw=False
+    )
+
+    base_stim = PresentationRoutine(
+        duration=0.3,
+        name="fixation",
+        stimulus_definitions=[fixation]
+    )
+
+
+    fix_isi = PresentationRoutine(
+        name="isi",
+        duration=0.3,
+        stimulus_definitions=[fixation2]
     )
 
     def first_step(img):
         return [
             base_stim,
-            ImageStimulus(
+            PresentationRoutine(
                 duration=1.0,
-                image_paths=[img],
-                positions=[(0, 0)],
                 name="cue",
-                rl_label="obs"
+                rl_label="obs",
+                stimulus_definitions=[
+                    ImageDefinition(
+                        image=img,
+                        pos=(0, 0),
+                        name="robot"
+                    )
+                ]
             ),
             fix_isi,
-            ImageStimulus(
-                duration=0.001,
-                image_paths=[
-                    mid_stimuli(
+            ActionRoutine(
+                name="response",
+                rl_label="action",
+                duration=1.0,
+                key_dict=key_dict,
+                timeout_action=1.0,
+                presentation_settings={
+                    "name_before": "target",
+                },
+                stimulus_definitions=[
+                    ImageDefinition(
+                        name="circle",
+                        image=mid_stimuli(
                         other_color="gray",
                         shape="circle",
                         probe=False,
                         amount="",
                         shape_dim=250,
-                    )
-                ],
-                positions=[(0, 0)],
-                name="target",
-            ),
-            ActionStimulus(duration=1.0, key_dict=key_dict, timeout_action=1, rl_label="action"),
+                    ),
+                    pos=(0, 0))],
+            )
         ]
 
     final_step = [
